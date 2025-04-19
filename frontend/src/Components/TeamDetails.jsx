@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { RiEdit2Line } from "react-icons/ri";
 
+const API_BASE_URL = "https://pangea-tech-backend.onrender.com";
+
 export default function TeamDetails() {
   const { teamId } = useParams();
   console.log(teamId);
@@ -16,7 +18,7 @@ export default function TeamDetails() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/api/teams/${teamId}`)
+    fetch(`${API_BASE_URL}/api/teams/${teamId}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -41,7 +43,7 @@ export default function TeamDetails() {
 
   const saveMetadata = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/teams/${teamId}`, team);
+      await axios.put(`${API_BASE_URL}/api/teams/${teamId}`, team);
       setIsEditingTeam(false);
     } catch (error) {
       console.error("Error saving metadata:", error);
@@ -63,7 +65,7 @@ export default function TeamDetails() {
       const player = team.players[index];
       console.log("Saving player:", player);
       await axios.put(
-        `http://localhost:5000/api/teams/${teamId}/players/${index}`,
+        `${API_BASE_URL}/api/teams/${teamId}/players/${index}`,
         player
       );
       setEditingPlayerIndex(null);

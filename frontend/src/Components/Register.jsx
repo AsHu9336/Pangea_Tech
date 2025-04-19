@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+const API_BASE_URL = "https://pangea-tech-backend.onrender.com";
+
 export default function Register() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -25,7 +27,7 @@ export default function Register() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/register", {
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +72,7 @@ export default function Register() {
           </h2>
           <p className="text-xl text-gray-600 text-center">Join us today!</p>
           <a
-            href="http://localhost:5000/api/auth/google"
+            href={`${API_BASE_URL}/api/auth/google`}
             className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
           >
             <div className="px-4 py-3">

@@ -1,6 +1,8 @@
 import React from "react";
-import { Link, useNavigate , useLocation} from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from "react";
+
+const API_BASE_URL = "https://pangea-tech-backend.onrender.com";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -9,7 +11,6 @@ export default function Login() {
         password: ""
     });
 
-    // const navigate = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
@@ -35,7 +36,7 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5000/api/auth/login', {
+            const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +72,7 @@ export default function Login() {
                         </h2>
                         <p className="text-xl text-gray-600 text-center">Welcome back!</p>
                         <a
-                            href="http://localhost:5000/api/auth/google"
+                            href={`${API_BASE_URL}/api/auth/google`}
                             className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
                         >
                             <div className="px-4 py-3">
