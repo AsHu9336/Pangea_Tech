@@ -15,6 +15,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/auth/callback" element={<Login />} />
         <Route path="/teams/:teamId" element={<TeamDetails />} />
+        
       </Routes>
     </Router>
   );

@@ -1,8 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-// import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function TeamDetails() {
   const { teamId } = useParams();
@@ -63,10 +63,37 @@ export default function TeamDetails() {
       });
   }, [teamId]);
 
-  // const savePlayer = async (index) => {
-  //   const player = team.players[index];
-  //   await axios.put(`http://localhost:5000/api/teams/${id}/players/${index}`, player);
-  // };
+  const handleMetadataChange = (key, value) => {
+    setTeam({ ...team, [key]: value });
+  };
+
+  const saveMetadata = async () => {
+    try {
+      await axios.put(`http://localhost:5000/api/teams/${teamId}`, team);
+    } catch (error) {
+      console.error('Error saving metadata:', error);
+      setError('Failed to save metadata changes');
+    }
+  };
+
+  const handlePlayerEdit = (index, key, value) => {
+    const updatedPlayers = [...team.players];
+    updatedPlayers[index] = {
+      ...updatedPlayers[index],
+      [key]: value
+    };
+    setTeam({ ...team, players: updatedPlayers });
+  };
+
+  const savePlayer = async (index) => {
+    try {
+      const player = team.players[index];
+      await axios.put(`http://localhost:5000/api/teams/${teamId}/players/${index}`, player);
+    } catch (error) {
+      console.error('Error saving player:', error);
+      setError('Failed to save player changes');
+    }
+  };
 
   if (loading) {
     return <div className="text-center mt-4">Loading team details...</div>;
@@ -92,23 +119,21 @@ export default function TeamDetails() {
             </label>
             <input
               type="text"
-              value={
-                Array.isArray(team[key]) ? team[key].join(", ") : team[key]
+              value={Array.isArray(team[key]) ? team[key].join(", ") : team[key]}
+              onChange={(e) =>
+                handleMetadataChange(
+                  key,
+                  key === "owners" || key === "support_staff"
+                    ? e.target.value.split(",").map((s) => s.trim())
+                    : e.target.value
+                )
               }
-              // onChange={(e) =>
-              //   handleMetadataChange(
-              //     key,
-              //     key === "owners" || key === "support_staff"
-              //       ? e.target.value.split(",").map((s) => s.trim())
-              //       : e.target.value
-              //   )
-              // }
               className="border rounded p-1 ml-2"
             />
           </div>
         ))}
         <button
-          // onClick={saveMetadata}
+          onClick={saveMetadata}
           className="mt-2 px-4 py-1 bg-blue-500 text-white rounded"
         >
           Save Metadata
