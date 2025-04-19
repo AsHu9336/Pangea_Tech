@@ -23,7 +23,8 @@ router.get(
       });
 
       // Option 1: Redirect with token as query parameter
-      res.redirect(`http://localhost:5173/auth/callback?token=${token}`);
+      res.redirect(`https://pangea-tech-frontend.onrender.com/auth/callback?token=${token}`);
+
 
       // Option 2: Send JSON response (uncomment if you prefer this approach)
       // res.json({
@@ -36,7 +37,7 @@ router.get(
       // });
     } catch (error) {
       console.error("Callback Error:", error);
-      return res.redirect("http://localhost:5173/login?error=server_error");
+      return res.redirect("https://pangea-tech-frontend.onrender.com/login?error=server_error");
     }
   }
 );
