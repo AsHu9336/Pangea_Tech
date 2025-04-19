@@ -7,6 +7,7 @@ const passport = require('passport');
 const authRoutes = require('./routes/authRoutes');
 const uploadRoutes = require('./routes/uploadsRoutes');
 const teamRoutes = require('./routes/teamRoutes');
+const MongoStore = require('connect-mongo');
 
 // Load environment variables
 dotenv.config();
@@ -22,6 +23,10 @@ app.use(session({
     secret: 'iplmanager-secret',
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+      ttl: 14 * 24 * 60 * 60 // 14 days
+    })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
