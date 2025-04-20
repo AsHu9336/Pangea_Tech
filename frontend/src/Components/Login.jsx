@@ -47,14 +47,16 @@ export default function Login() {
             if (response.ok) {
                 // Handle successful login (e.g., store token, redirect)
                 console.log('Login successful:', data);
-                navigate('/home');
+                // navigate('/home');
                 localStorage.setItem('token', data.token);
+                navigate('/home', { replace: true });
             } else {
-                // Handle error
                 console.error('Login failed:', data.message);
+                alert(data.message || 'Login failed. Please try again.');
             }
         } catch (error) {
             console.error('Error during login:', error);
+            alert('An error occurred during login. Please try again.');
         }
     };
 
