@@ -1,9 +1,15 @@
 import "./App.css";
 import Login from "./Components/Login";
-import Home from './Components/Home'
+import Home from "./Components/Home";
 import Register from "./Components/Register";
 import TeamDetails from "./Components/TeamDetails";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import AuthCallback from "./Components/AuthCallback";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -12,22 +18,23 @@ function App() {
   return (
     <Router basename="/">
       <Routes>
-        <Route 
-          path="/" 
+        <Route
+          path="/"
           element={
             initialPath === "/" ? <Navigate to="/login" replace /> : null
-          } 
+          }
         />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/auth/callback" element={<Login />} />
+
         <Route path="/teams/:teamId" element={<TeamDetails />} />
-        <Route 
-          path="*" 
+        <Route
+          path="*"
           element={
             initialPath !== "/" ? <Navigate to="/login" replace /> : null
-          } 
+          }
         />
       </Routes>
     </Router>

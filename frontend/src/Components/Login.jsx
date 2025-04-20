@@ -13,17 +13,17 @@ export default function Login() {
 
     const location = useLocation();
 
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const token = params.get("token");
+    // useEffect(() => {
+    //     const params = new URLSearchParams(location.search);
+    //     const token = params.get("token");
 
-        if (token) {
-            localStorage.setItem("token", token);
-            navigate("/home", { replace: true }); // Redirect to home after storing token
-        } else {
-            navigate("/login"); // Fallback if token missing
-        }
-    }, [location, navigate]);
+    //     if (token) {
+    //         localStorage.setItem("token", token);
+    //         navigate("/home", { replace: true }); // Redirect to home after storing token
+    //     } else {
+    //         navigate("/login"); // Fallback if token missing
+    //     }
+    // }, [location, navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
