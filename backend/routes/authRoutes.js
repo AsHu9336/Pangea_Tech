@@ -23,7 +23,7 @@ router.get(
       });
 
       // Option 1: Redirect with token as query parameter
-      res.redirect(`https://pangea-tech-frontend.onrender.com/api/auth/callback?token=${token}`);
+      res.redirect(`https://pangea-tech-frontend.onrender.com/auth/callback?token=${token}`);
 
 
       // Option 2: Send JSON response (uncomment if you prefer this approach)
