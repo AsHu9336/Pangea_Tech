@@ -112,9 +112,9 @@ export default function Login() {
                                 <label className="block text-gray-700 text-sm font-bold mb-2">
                                     Password
                                 </label>
-                                <a href="#" className="text-xs text-gray-500">
+                                <Link to="/forgot-password" className="text-xs text-gray-500">
                                     Forget Password?
-                                </a>
+                                </Link>
                             </div>
                             <input
                                 className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"

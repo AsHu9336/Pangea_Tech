@@ -11,6 +11,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Forgot_Password from "./Components/Forgot_Password";
 
 function App() {
   const [initialPath] = useState(window.location.pathname);
@@ -28,6 +29,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/forgot-password" element={<Forgot_Password />} />
 
         <Route path="/teams/:teamId" element={<TeamDetails />} />
         <Route
