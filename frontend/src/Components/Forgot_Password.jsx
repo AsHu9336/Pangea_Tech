@@ -14,13 +14,14 @@ export default function Forgot_Password() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
+      const response = await fetch(`${API_BASE_URL}/api/auth/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
 
       const data = await response.json();
+      console.log("data", data);
       if (response.ok) {
         setMessage("Password reset link sent to your email.");
       } else {
@@ -69,13 +70,17 @@ export default function Forgot_Password() {
               </button>
             </div>
           </form>
-            {message && (
-                <div className="mt-4">
-                <p className={`text-sm ${isLoading ? "text-gray-500" : "text-red-500"}`}>
-                    {message}
-                </p>
-                </div>
-            )}
+          {message && (
+            <div className="mt-4">
+              <p
+                className={`text-sm ${
+                  isLoading ? "text-gray-500" : "text-red-500"
+                }`}
+              >
+                {message}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
