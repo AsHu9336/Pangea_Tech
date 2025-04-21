@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Link , useEffect } from 'react';
 
 const API_BASE_URL = "https://pangea-tech-backend.onrender.com";
 
