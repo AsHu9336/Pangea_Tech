@@ -1,6 +1,5 @@
-import React from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Link , useEffect } from 'react';
+import React, { useEffect } from 'react'
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 
 const API_BASE_URL = "https://pangea-tech-backend.onrender.com";
 
@@ -31,6 +30,7 @@ export default function AuthCallback() {
                     throw new Error('Token verification failed');
                 }
             })
+
             .catch(error => {
                 console.error('Token verification error:', error);
                 localStorage.removeItem("token");
