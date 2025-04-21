@@ -35,6 +35,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("login called with email:", email); // Debugging line
 
     // Find user
     const user = await User.findOne({ email });
@@ -56,10 +57,29 @@ const login = async (req, res) => {
   }
 };
 
+
+const verifyToken = (req, res) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader)
+    return res.status(401).json({ message: "No token provided" });
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    res.status(200).json({ valid: true, userId: decoded.id });
+  } catch (error) {
+    res.status(401).json({ message: "Token verification failed" });
+  }
+};
+
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
+  console.log("forgotPassword called with email:", email); // Debugging line
   try {
     const user = await User.findOne({ email });
+    console.log("User found:", user); // Debugging line
     if (!user) return res.status(404).json({ message: "User not found" });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -92,4 +112,4 @@ const resetPassword = async (req, res) => {
   }
 };
 
-module.exports = { register, login , forgotPassword, resetPassword};
+module.exports = { register, login,  verifyToken ,forgotPassword, resetPassword };
