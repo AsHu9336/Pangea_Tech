@@ -1,31 +1,59 @@
 import React from 'react'
-
-import { useLocation , useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+
+const API_BASE_URL = "https://pangea-tech-backend.onrender.com";
+
 export default function AuthCallback() {
-
     const location = useLocation();
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const token = params.get("token");
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const token = params.get("token");
 
-    if (token) {
-      localStorage.setItem("token", token);
-      navigate("/home"); // or any page you want
-    } else {
-      // If token is missing, maybe redirect to login or show an error
-      navigate("/login");
-    }
-  }, [location, navigate]);
+        if (token) {
+            console.log("Token received:", token);
+            // Store token in localStorage
+            localStorage.setItem("token", token);
+            
+            // Verify token with backend
+            fetch(`${API_BASE_URL}/api/auth/verify`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    navigate("/home", { replace: true });
+                } else {
+                    throw new Error('Token verification failed');
+                }
+            })
+            .catch(error => {
+                console.error('Token verification error:', error);
+                localStorage.removeItem("token");
+                navigate("/login", { replace: true });
+            });
+        } else {
+            console.error("No token received");
+            navigate("/login", { replace: true });
+        }
+    }, [location, navigate]);
 
-
-  return (
-    <div>
-        <h1 className='text-center text-3xl font-bold'>Redirecting...</h1>
-        <p className='text-center text-lg'>If you are not redirected automatically, click <a href="/login" className='text-blue-500 underline'>here</a>.</p>
-      
-    </div>
-  )
+    return (
+        <div className="min-h-screen flex items-center justify-center">
+            <div className="text-center">
+                <h1 className="text-3xl font-bold mb-4">Redirecting...</h1>
+                <p className="text-lg">
+                    If you are not redirected automatically, click{" "}
+                    <Link to="/login" className="text-blue-500 underline">
+                        here
+                    </Link>
+                    .
+                </p>
+            </div>
+        </div>
+    );
 }
