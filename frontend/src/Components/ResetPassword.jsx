@@ -49,7 +49,7 @@ export default function ResetPassword() {
           <form onSubmit={handleSubmit}>
             <input
               type="password"
-              className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+              className="bg-gray-200 mb-2 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
               placeholder="New Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -57,7 +57,7 @@ export default function ResetPassword() {
             />
             <input
               type="password"
-              className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+              className="bg-gray-200 mb-2 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
               placeholder="Confirm Password"
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
