@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 
 const playerSchema = new mongoose.Schema({
   name: String,
-  image: String, // image URL
-  role: String   // Batter, Bowler, All-rounder, Wicket Keeper
+  image: String, 
+  role: String   
 });
 const teamSchema = new mongoose.Schema({
   team_code: {
     type: String,
     required: true,
-    unique: true, // Optional, but useful to avoid duplicate teams
+    unique: true, 
   },
   team_name: {
     type: String,
